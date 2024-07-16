@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,5 +38,11 @@ public class UserController {
     @GetMapping("/{username}")
     public ResponseEntity<Optional<User>> getUserByUsername(@PathVariable String username) {
         return new ResponseEntity<>(userService.singleUser(username),HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<User> createUser(@RequestBody Map<String,String> payload) {
+        return new ResponseEntity<>(userService.createUser(payload.get("username"),payload.get("password"),payload.get("email"),
+                payload.get("firstName"),payload.get("lastName"),payload.get("sex")), HttpStatus.CREATED);
     }
 }

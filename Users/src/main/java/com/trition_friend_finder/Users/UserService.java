@@ -26,4 +26,11 @@ public class UserService {
     public Optional<User> singleUser(String username) {
         return userRepository.findUserByUsername(username);
     }
+
+    public User createUser(String username, String password, String email,
+                           String firstname, String lastName, String sex) {
+        User user = new User(username,password,email,firstname,lastName,sex);
+        userRepository.insert(user);
+        return user;
+    }
 }
