@@ -3,9 +3,13 @@ package com.trition_friend_finder.Users;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 @Document(collection = "users")
 @Data
@@ -20,6 +24,8 @@ public class User {
     private String firstName;
     private String lastName;
     private String sex;
+    @DocumentReference
+    private List<Response> responseId;
     
     public User(String username, String password, String email, String firstName, String lastName, String sex) {
         this.username = username;
@@ -28,25 +34,5 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.sex = sex;
-    }
-
-    public ObjectId getId() {
-        return this.id;
-    }
-
-    public String getUsername() {
-        return this.username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }
