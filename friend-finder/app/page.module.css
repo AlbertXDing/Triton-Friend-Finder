@@ -1,3 +1,66 @@
+.formGroup {
+  margin-bottom: 2rem;
+}
+
+.formGroup label.question {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.formGroup label.answer {
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.radioGroup {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.radioGroup input[type="radio"] {
+  margin-right: 0.5rem;
+}
+
+.submitButton {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.submitButton:hover {
+  background-color: #005bb5;
+  transform: scale(1.05);
+}
+
+.submitButton:active {
+  background-color: #004b9b;
+  transform: scale(1);
+}
+
+.buttonSpacing {
+  margin-bottom: 24px;
+}
+
+.questionLink {
+  text-align: center;
+}
+
+.link {
+  color: #0070f3;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+/* came with react.js */
 .main {
   display: flex;
   flex-direction: column;
