@@ -1,8 +1,11 @@
-package com.trition_friend_finder.Users;
+package com.trition_friend_finder.services;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.trition_friend_finder.models.User;
+import com.trition_friend_finder.repositories.UserRepository;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,10 +1,14 @@
-package com.trition_friend_finder.Users;
+package com.trition_friend_finder.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
+
+import com.trition_friend_finder.models.Response;
+import com.trition_friend_finder.models.User;
+import com.trition_friend_finder.repositories.ResponseRepository;
 
 import java.util.List;
 

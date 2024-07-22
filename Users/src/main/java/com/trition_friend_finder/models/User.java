@@ -1,4 +1,4 @@
-package com.trition_friend_finder.Users;
+package com.trition_friend_finder.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
