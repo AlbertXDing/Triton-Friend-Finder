@@ -43,7 +43,7 @@ export default function Register() {
   
     try {
       const user = JSON.stringify(formData);
-      const response = await fetch('/api/v1/users', { //'http://localhost:8080/api/v1/users'
+      const response = await fetch('users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
