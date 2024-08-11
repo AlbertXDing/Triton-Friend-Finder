@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from "../page.module.css";
 
 const genders = [
@@ -9,18 +10,8 @@ const genders = [
   { id: "gender_other", value: "other", label: "Other" }
 ];
 
-const RadioGroup = ({ name, options, handleChange }) => (
-  <>
-    {options.map(({ id, value, label }) => (
-      <div key={id} className={styles.radioGroup}>
-        <input type="radio" id={id} name={name} value={value} onChange={handleChange} required />
-        <label htmlFor={id} className={styles.answer}>{label}</label>
-      </div>
-    ))}
-  </>
-);
-
 export default function Register() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -42,37 +33,24 @@ export default function Register() {
     e.preventDefault();
   
     try {
-      const user = JSON.stringify(formData);
-      const response = await fetch('users', {
+      const response = await fetch('/api/v1/users', { // Ensure the correct API endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: user,
+        body: JSON.stringify(formData),
       });
   
       if (!response.ok) {
         throw new Error(`Error creating user: ${response.statusText}`);
       }
   
-      const createdUser = await response.json();
-      console.log('User created:', createdUser);
+      console.log('User created:', await response.json());
+      router.push('/lookup'); // Redirect to the lookup page
     } catch (error) {
       console.error('Failed to create user:', error);
     }
   };
-  
-  
-  // const addUser = async (e) => {
-  //   e.preventDefault();
-
-  //   const user = JSON.stringify(formData)
-
-  //   try
-  //   {
-  //       const response = await ApiError.post()
-  //   }
-  // }
 
   return (
     <main className={styles.main}>
@@ -103,7 +81,12 @@ export default function Register() {
           </div>
           <div className={styles.formGroup}>
             <label className={styles.question}>Gender:</label>
-            <RadioGroup name="sex" options={genders} handleChange={handleChange} />
+            {genders.map(({ id, value, label }) => (
+              <div key={id} className={styles.radioGroup}>
+                <input type="radio" id={id} name="sex" value={value} onChange={handleChange} required />
+                <label htmlFor={id} className={styles.answer}>{label}</label>
+              </div>
+            ))}
           </div>
           <button type="submit" className={styles.submitButton}>Submit</button>
         </form>
