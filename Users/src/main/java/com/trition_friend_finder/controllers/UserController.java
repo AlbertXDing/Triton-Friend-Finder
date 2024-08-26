@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.trition_friend_finder.models.User;
 import com.trition_friend_finder.services.UserService;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -46,13 +49,31 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody Map<String,String> payload) {
+
         return new ResponseEntity<>(userService.createUser(
             payload.get("username"),
             payload.get("password"),
             payload.get("email"),
             payload.get("firstName"),
             payload.get("lastName"),
-            payload.get("sex")), 
-            HttpStatus.CREATED);
+            payload.get("sex"),
+            new HashSet<String>()), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/{username}/seen/{seenUser}")
+    public ResponseEntity<Void> addSeenUser(@PathVariable String username, @PathVariable String seenUser) {
+        Optional<User> userFind = userService.singleUser(username);
+        
+        if (userFind.isPresent()) {
+            userService.addSeenUsers(username, seenUser);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/{username}/seen/{seenUser}")
+    public ResponseEntity<Boolean> userSeenBefore(@PathVariable String username, @PathVariable String seenUser) {
+        return new ResponseEntity<>(userService.userSeenBefore(username, seenUser), HttpStatus.OK);
     }
 }
