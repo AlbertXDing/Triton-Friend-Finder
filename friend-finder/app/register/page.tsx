@@ -33,7 +33,7 @@ export default function Register() {
     e.preventDefault();
   
     try {
-      const response = await fetch('/api/v1/users', { // Ensure the correct API endpoint
+      const response = await fetch('/api/v1/registration', { // Ensure the correct API endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
