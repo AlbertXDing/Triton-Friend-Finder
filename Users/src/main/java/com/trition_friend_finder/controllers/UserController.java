@@ -22,6 +22,7 @@ import com.trition_friend_finder.response.AuthResponse;
 import com.trition_friend_finder.security.config.JwtProvider;
 import com.trition_friend_finder.services.UserService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -122,5 +123,29 @@ public class UserController {
 
         return new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities()); 
   
+    }
+
+
+    /**
+     * Retrieves information about the logged in user.
+     * 
+     * This method retrieves information about the logged in user and stores it in a hashmap. 
+     * 
+     * @return Map of the logged in user's information
+     * @throws BadCredentialsException if the username or password is invalid
+     */
+    @GetMapping("/userInfo")
+    public ResponseEntity<HashMap<String, Object>> getUserInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        HashMap<String, Object> userInfo = new HashMap<>();
+
+        userInfo.put("username", userDetails.getUsername());
+        userInfo.put("email", userDetails.getUsername());
+        //Add more features here when needed
+        
+        return new ResponseEntity<>(userInfo, HttpStatus.OK);
     }
 }
