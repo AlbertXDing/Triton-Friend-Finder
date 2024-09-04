@@ -5,9 +5,9 @@ import styles from "../page.module.css";
 
 export default function UserPage() {
   const [user, setUser] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   const fetchUser = async () => {
-    // const response = await fetch('/api/v1/users/test1');
     const response = await fetch('/api/v1/users');
     if (response.ok) {
       const data = await response.json();
@@ -17,8 +17,19 @@ export default function UserPage() {
     }
   };
 
+  const fetchLoggedInUser = async () => {
+    const response = await fetch('/api/v1/users/userInfo');
+    if (response.ok) {
+      const data = await response.json();
+      setLoggedInUser(data.username);
+    } else {
+      console.error('Failed to fetch logged-in user data');
+    }
+  };
+
   useEffect(() => {
     fetchUser();
+    fetchLoggedInUser();
   }, []);
 
   if (!user) {
@@ -30,6 +41,8 @@ export default function UserPage() {
   return (
     <main className={styles.main}>
       <div className={styles.userInfo}>
+        <p>Logged in as: {loggedInUser}</p>
+
         <h1>{username}</h1>
         <div>First Name: {firstName}</div>
         <div>Last Name: {lastName}</div>
